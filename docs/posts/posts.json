@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/2022-02-07-casey-ohs/",
+    "title": "casey OHs",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Brendan McGovern",
+        "url": {}
+      }
+    ],
+    "date": "2022-02-07",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-02-07T13:23:11-08:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2022-02-05-welcome/",
+    "title": "Welcome",
+    "description": "This is a space where I'll yell into the ethersphere...",
+    "author": [
+      {
+        "name": "Brendan McGovern",
+        "url": {}
+      }
+    ],
+    "date": "2022-02-05",
+    "categories": [],
+    "contents": "\nWelcome to my blog. I will provide my musings on water, climate and management decisions on a relatively frequent basis.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-02-15T13:24:52-08:00",
+    "input_file": {}
+  }
+]
