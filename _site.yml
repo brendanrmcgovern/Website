@@ -1,12 +1,14 @@
 name: "."
-title: "mfeo"
+title: "Brendan"
 description: |
-  mfeo
+  Brendan
 output_dir: "docs"
 navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About"
+    - text: "About Me"
       href: about.html
+    - text: "Blog"
+      href: blog.html
 output: distill::distill_article

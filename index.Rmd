@@ -3,16 +3,16 @@ title: "Brendan McGovern"
 image: "brendan.jpg"
 links:
   - label: LinkedIn
-    url: "https://linkedin.com/"
+    url: "https://www.linkedin.com/in/brendan-r-mcgovern/"
   - label: Twitter
-    url: "www.google.com"
+    url: "https://twitter.com/brmcgove"
   - label: GitHub
     url: "https://github.com/brendanrmcgovern"
   - label: Email
-    url: "bmcgovern@ucsb.edu"
+    url: "mailto:bmcgovern@ucsb.edu"
 site: distill::distill_website
 output:
   postcards::trestles
 ---
  
-I am a MESM student at the Bren School of Environmental Science & Management at UC Santa Barbara.
+I am a second year MESM student at the Bren School of Environmental Science & Management at UC Santa Barbara. I am specializing in water resources management, and I am specifically interested in developing a deeper understanding around sustainable water management under a changing climate. 
