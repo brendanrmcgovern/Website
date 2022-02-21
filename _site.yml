@@ -12,6 +12,7 @@ navbar:
     - text: "Blog"
       href: blog.html
     - text: "CV"
-      href: BMcGovern_Resume.pdf
+      href: <a href = 'BMcGovern_Resume.pdf' target = '_blank'>link text you will see on the site</a>
 output: distill::distill_article
 theme: postcards.css
+

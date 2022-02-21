@@ -13,7 +13,7 @@ output:
 
 This December, my Group Project team and I had the opportunity to visit the our Group Project study region, the Tahoe-Central Sierra. We meet our client, Blue Forest Conservation in Bullard's Bar Reservoir and toured a number of sites in the Yuba Watershed to discuss various project sites, wildfire impacts, restoration goals and the resevoir itself!
 
-![Bullard's Bar Reservoir](Dam.jpg)
+![Bullards Bar Reservoir](Dam.jpg)
 
 After discussing sedimentation and woody debris impacts to reservoir operations, we toured the Pendola Fire burn area where active restoration was taking place to reduce erosion and sediment into the reservoir.
 
