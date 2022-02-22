@@ -1,0 +1,11 @@
+---
+title: "Projects"
+description: |
+---
+ 
+Here are a few of the coding projects that I have worked on while at the Bren School. 
+
+#### Featured projects:
+
+* Shiny App related to participatory GIS mapping from Master's Group Project - https://github.com/brendanrmcgovern/shinyapp-bm-hm
+* Statistical analysis of snowshoe hare data for class assignment - https://github.com/brendanrmcgovern/a4_Brendan_McGovern

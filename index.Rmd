@@ -1,6 +1,6 @@
 ---
 title: "Brendan McGovern"
-image: "brendan.jpg"
+image: "brendan_bren.jpg"
 links:
   - label: LinkedIn
     url: "https://www.linkedin.com/in/brendan-r-mcgovern/"
@@ -15,6 +15,16 @@ output:
   postcards::trestles
 ---
  
+
+
 I am a second year MESM student at the Bren School of Environmental Science & Management at UC Santa Barbara. I am specializing in water resources management, and I am specifically interested in developing a deeper understanding around sustainable water management under a changing climate.
 
+
+
+#### Education
+
+M.E.S.M. student in Bren School of Environmental Science & Management | University of California, Santa Barbara | 2020 - Present
+
+B.A. in Political Science | University of California, Davis | 2007 - 2012
+B.A. in History | University of California, Davis | 2007 - 2012
 

@@ -4,15 +4,21 @@ description: |
   Brendan
 output_dir: "docs"
 navbar:
+  logo:
+    image: water_drop.png
   right:
     - text: "Home"
       href: index.html
+    - text: "Research"
+      menu:
+        - text: "Projects"
+          href: Research.html
+        - text: "CV"
+          href: BMcGovern_Resume.pdf 
     - text: "About Me"
       href: about.html
     - text: "Blog"
       href: blog.html
-    - text: "CV"
-      href: BMcGovern_Resume.pdf
 output: distill::distill_article
 theme: postcards.css
 
