@@ -1,7 +1,7 @@
 ---
 title: "Group Project fieldtrip to Tahoe-Central Sierra region"
 description: |
-  A short description of the post.
+  A brief visit to our GP project site
 author:
   - name: Brendan McGovern
     url: {}
