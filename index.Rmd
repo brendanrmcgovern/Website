@@ -1,6 +1,6 @@
 ---
 title: "Brendan McGovern"
-image: "Brendan_dicks_pass.jpeg"
+image: "brendan.jpg"
 links:
   - label: LinkedIn
     url: "https://www.linkedin.com/in/brendan-r-mcgovern/"
