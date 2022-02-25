@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: |
+listing: research_portfolio
 ---
  
 Here are a few of the coding projects that I have worked on while at the Bren School. 
