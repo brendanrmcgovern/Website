@@ -12,7 +12,7 @@ navbar:
     - text: "Research"
       menu:
         - text: "Projects"
-          href: Research.html
+          href: projects.html
         - text: "CV"
           href: BMcGovern_Resume.pdf 
     - text: "About Me"

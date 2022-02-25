@@ -14,7 +14,7 @@ output:
 
 # Florida Palmetto Species
 
-This anaylsis will utilize data from Abrahamson, 2019, on Florida palmetto characteristics. We will use binary logistic regression to test feasibility of using variables plant height, canopy length, canopy width, and number of green leaves to classify whether a palmetto is Serenoa repens or Sabal etonia.
+This anaylsis will utilize data from Abrahamson, 2019, on Florida palmetto characteristics. We will use binary logistic regression to test feasibility of using variables plant height, canopy length, canopy width, and number of green leaves to classify whether a palmetto is *Serenoa repens* or *Sabal etonia*.
 
 ## Exploratory Data Visualization
 
