@@ -14,7 +14,7 @@ navbar:
         - text: "Projects"
           href: projects.html
         - text: "CV"
-          href: BMcGovern_Resume.pdf 
+          href: cv.html 
     - text: "About Me"
       href: about.html
     - text: "Blog"

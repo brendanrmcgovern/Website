@@ -1,0 +1,8 @@
+---
+title: "CV"
+description: |
+---
+
+<a href = 'BMcGovern_CV.pdf' target = '_blank'>Click here for a PDF</a>
+
+![](BMcGovern_CV.jpg)
