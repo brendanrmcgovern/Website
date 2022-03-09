@@ -1,5 +1,34 @@
 [
   {
+    "path": "research_portfolio/2022-03-08-data-viz/",
+    "title": "data viz",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Brendan McGovern",
+        "url": {}
+      }
+    ],
+    "date": "2022-03-08",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-03-08T16:14:04-08:00",
+    "input_file": "data-viz.knit.md"
+  },
+  {
+    "path": "research_portfolio/2022-03-08-fourth-project/",
+    "title": "fourth project",
+    "description": "A short description of the post.",
+    "author": [],
+    "date": "2022-03-08",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-03-08T16:14:35-08:00",
+    "input_file": "fourth-project.knit.md"
+  },
+  {
     "path": "research_portfolio/2022-02-25-coding-project/",
     "title": "Binary Logistic Regression: Florida Palmetto Species",
     "description": "In this project, I examined Florida palmetto data through exploratory visaulizations and used binary logistic regression to classify palmetto species.",
