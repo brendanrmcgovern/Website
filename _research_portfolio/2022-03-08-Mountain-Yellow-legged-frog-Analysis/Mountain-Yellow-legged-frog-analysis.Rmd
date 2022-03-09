@@ -1,0 +1,131 @@
+---
+title: "fourth project"
+description: |
+  A short description of the post.
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+# Mountain Yellow-legged frog Analysis
+
+For this analysis, I will be looking at data provided by Knapp et al. (2020), which catalogues data between 1995-2002 on amphibian species counted in "The Sierra Lakes Inventory Project" (SLIP) to examine mountain yellow-legged frog (`Rana muscosa`) (RAMU in the data and plots) population numbers across life stages in the study region. Particularly, we are interested in identifying observations of Adults, SubAdults, and Tadpoles over the study period (1995-2002) as well as identifying the top 5 lakes with the greatest total observed counts of Adults and SubAdults. 
+
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(lubridate)
+library(kableExtra)
+library(ggplot2)
+library(cowplot)
+library(plotly)
+library(patchwork)
+library(readxl)
+```
+
+### Making a graph of mountain yellow-legged frog (RAMU) count each year across all water bodies
+
+This analysis removes unnecessary parameters from the data to look at counts of mountain yellow-legged frogs (RAMU) across three life stages of interest: Adults, SubAdults, and Tadpoles. We will then show counts by year (see **Figure 1**).
+
+```{r}
+# Making a graph of mountain yellow-legged frog count each year across all water bodies
+sierra_amphibians <- read_excel("data/sierra_amphibians.xlsx") %>% 
+  clean_names()
+```
+
+```{r}
+# Cleaning data to look at parameters of interest
+sierra_amphibians_clean <- sierra_amphibians %>%
+  mutate(date_new = ymd(survey_date)) %>%
+  mutate(year = year(date_new)) %>%
+  filter(amphibian_species %in% c("RAMU")) %>%
+  filter(amphibian_life_stage %in% c("Adult", "SubAdult", "Tadpole"))
+```
+
+```{r}
+# Grouping by year and amphibian life stage and then summing amphibian number
+sierra_amphibian_RAMUcount <- sierra_amphibians_clean %>%
+  group_by(year, amphibian_life_stage)
+```
+
+
+
+```{r}
+# Plotting RAMU counts 
+sierra_amphibian_RAMUcount %>% 
+  ggplot(aes(x = as.factor(year), y = amphibian_number, fill = amphibian_life_stage)) +
+  geom_col() +
+  theme_cowplot(12) +
+  labs(x = "Count by of RAMU by life stage across study period", y = "Number of RAMU counted", title = "Total RAMU numbers counted across lake sites", subtitle = "between 1995-2002") +
+  facet_wrap(~amphibian_life_stage, scales = "free") +
+  theme(axis.text.x = element_text(angle = 45, hjust =1)) +
+  guides(fill=guide_legend(title="Amphibian Life Stage"))
+```
+
+**Figure 1** Total counts of mountain yellow-legged frog (RAMU) counts by Adults, SubAdults and Tadpoles between 1995-2002 across all water bodies in the study region. Data: Knapp et al. 2020.
+
+### Analysis of the 5 lakes with the highest counts of Adult and SubAdult mountain yellow-legged frogs
+
+We are interested in just identifying the 5 lakes with the highest counts of Adult and SubAdult mountain yellow frogs. For this we grouped the data by Lake ID and summarized data by 'amphibian_number' for the life stages of interest (see **Figure 2**).
+```{r}
+# adding "Lake" to lake_id and grouping by Lake
+sierra_amphibians_lake <- sierra_amphibian_RAMUcount %>%
+  mutate(lake_id = paste('Lake', lake_id)) %>% 
+  filter(amphibian_life_stage %in% c("Adult", "SubAdult")) %>% 
+  group_by(lake_id) %>%
+  summarize(amphibian_number = sum(amphibian_number))
+```
+
+```{r}
+# creating new table with 5 lakes with the highest Adult and SubAdult counts
+top_5_lakes <- sierra_amphibians_lake %>% 
+  slice_max(order_by = amphibian_number, n = 5)
+```
+
+
+```{r}
+# Plotting top 5 lakes
+top_5_lakes %>% 
+  ggplot(aes(fct_rev(fct_reorder(lake_id, amphibian_number)), amphibian_number))+
+  geom_col() +
+  geom_col(stat = "identity", fill = "dark cyan", color = "black") +
+  labs(x = "Lake (by ID) with highest RAMU counts over study period", y = "Number of RAMU counted", title = "5 Lakes with highest Adult/SubAdult RAMU numbers", subtitle = "between 1995-2002") +
+  theme_cowplot()
+```
+
+**Figure 2** Depicts the top 5 lakes in the study region counting all the Adult and SubAdults counts observed over the study period (1995-2002). Data: Knapp et al. 2020).
+
+### Combined Figure for Analysis
+
+We combine **Figure 1** and **Figure 2** to aid in visual analysis of the mountain-yellow legged frog population over the study period and study region (see **Figure 3**).
+```{r}
+RAMU_plot <- sierra_amphibian_RAMUcount %>% 
+  ggplot(aes(x = as.factor(year), y = amphibian_number, fill = amphibian_life_stage)) +
+  geom_col() +
+  theme_cowplot(font_size = 10) +
+  labs(x = "Count of RAMU by life stage", y = "RAMU count", title = "Total mountain yellow-legged frogs (RAMU) counted at all lake sites") +
+  facet_wrap(~amphibian_life_stage, scales = "free") +
+  theme(axis.text.x = element_text(angle = 45, hjust =1)) +
+  guides(fill=guide_legend(title="Amphibian Life Stage"))
+
+top5_plot <- top_5_lakes %>% 
+  ggplot(aes(fct_rev(fct_reorder(lake_id, amphibian_number)), amphibian_number)) +
+  geom_col() +
+  geom_col(stat = "identity", fill = "dark cyan", color = "black") +
+  labs(x = "Lakes with highest total Adult & SubAdult counts", y = "RAMU count", title = "5 Lakes with highest RAMU counts", subtitle = "over entire study period 1995-2002") +
+  theme_cowplot(font_size = 10)
+
+RAMU_plot / top5_plot
+```
+
+
+**Figure 3** This figure combines **Figure 1** and **Figure2** to aid in the analysis of the data. Data: Knapp et al. 2020.
+
+### Citation
+Data citation: Knapp, R.A., C. Pavelka, E.E. Hegeman, and T.C. Smith. 2020. The Sierra Lakes Inventory Project: Non-Native fish and community composition of lakes and ponds in the Sierra Nevada, California ver 2. Environmental Data Initiative. https://doi.org/10.6073/pasta/d835832d7fd00d9e4466e44eea87fab3
+
+
+
