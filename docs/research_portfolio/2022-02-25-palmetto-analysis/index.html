@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Binary Logistic Regression: Florida Palmetto Species"]},{"type":"character","attributes":{},"value":["In this project, I examined Florida palmetto data through exploratory visaulizations and used binary logistic regression to classify palmetto species."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Brendan McGovern"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-02-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["Code"]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Binary Logistic Regression: Florida Palmetto Species"]},{"type":"character","attributes":{},"value":["In this project, I examined Florida palmetto data through exploratory visaulizations and used binary logistic regression to classify palmetto species."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Brendan McGovern"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-02-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2387,7 +2387,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
 <a class="logo">
-<img src="../../water_drop.png" alt="Logo"/>
+<img src="../../water_droplet.png" alt="Logo"/>
 </a>
 <a href="../../index.html" class="title">Brendan</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
@@ -2434,7 +2434,7 @@ Research
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>palmetto_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='st'>'data/palmetto.csv'</span><span class='op'>)</span> <span class='op'><a href='https://ggobi.github.io/ggally/reference/pipe.html'>%&gt;%</a></span> 
@@ -2450,7 +2450,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Exploring the data with ggpairs</span>
@@ -2467,7 +2467,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Height and length does not really show much variation</span>
@@ -2488,7 +2488,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>palmetto_data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>length</span>, y <span class='op'>=</span> <span class='va'>width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2508,7 +2508,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>palmetto_data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>green_lvs</span>, y <span class='op'>=</span> <span class='va'>height</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2527,7 +2527,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># removing columns that are not necessary</span>
@@ -2545,7 +2545,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># coding in two models to predict palmetto species</span>
@@ -2566,7 +2566,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># applying tidy to clean them up</span>
@@ -2579,7 +2579,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Convert log odds to probability</span>
@@ -2601,7 +2601,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Performing AIC to see which model appears to be better suited</span>
@@ -2701,7 +2701,7 @@ Mod2
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># using caret</span>
@@ -2727,7 +2727,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>blr1_tidy</span>, digits <span class='op'>=</span> <span class='fl'>135</span><span class='op'>)</span> <span class='op'><a href='https://ggobi.github.io/ggally/reference/pipe.html'>%&gt;%</a></span>
@@ -2848,7 +2848,7 @@ green_lvs
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Take model results and determine species predictions when &gt;= 50% or &lt;50%</span>
@@ -2886,7 +2886,7 @@ Code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Code
+hide
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>blr1_fitted_table_final</span><span class='op'>)</span> <span class='op'><a href='https://ggobi.github.io/ggally/reference/pipe.html'>%&gt;%</a></span> 

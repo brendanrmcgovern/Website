@@ -9,10 +9,10 @@ date: 2022-02-25
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: hide
 ---
 
-
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(here)
@@ -75,9 +75,9 @@ bonanza_hares_j_count <- bonanza_hares_juvenile %>%
 ```{r}
 # Looking at mean and median from 1999 to 2012
 
-bonanza_hares_j_count %>%
- summarize(mean_count = mean(n, na.rm=TRUE),
-            median_count = median(n))
+#bonanza_hares_j_count %>%
+ #summarize(mean_count = mean(n, na.rm=TRUE),
+            #median_count = median(n))
 ```
 
 
@@ -139,6 +139,7 @@ ggplot(data = bonanza_hares_juvenile, aes(x= full_sex, y = weight)) +
 ### Juvenile weight comparison (male and female snowshoe hares)
 
 **Table 1** Descriptive statistics (mean, median, standard deviation, and sample size) between female and male snowshoe hares. Data: Kielland et al. 2017.
+
 ```{r}
 # Table of mean, standard deviation, and sample size for male and female juvenile snowshoe hares
 

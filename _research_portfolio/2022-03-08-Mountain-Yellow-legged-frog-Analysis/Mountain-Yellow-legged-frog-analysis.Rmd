@@ -1,10 +1,11 @@
 ---
-title: "fourth project"
+title: "Mountain Yellow-legged frog Analysis"
 description: |
-  A short description of the post.
+  For this analysis, I will be looking at data provided by Knapp et al. (2020), which catalogues data between 1995-2002 on amphibian species counted in "The Sierra Lakes Inventory Project" (SLIP) to examine mountain yellow-legged frog (Rana muscosa) population numbers across life stages in the study region.
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: hide
 ---
 
 
@@ -70,6 +71,7 @@ sierra_amphibian_RAMUcount %>%
 ### Analysis of the 5 lakes with the highest counts of Adult and SubAdult mountain yellow-legged frogs
 
 We are interested in just identifying the 5 lakes with the highest counts of Adult and SubAdult mountain yellow frogs. For this we grouped the data by Lake ID and summarized data by 'amphibian_number' for the life stages of interest (see **Figure 2**).
+
 ```{r}
 # adding "Lake" to lake_id and grouping by Lake
 sierra_amphibians_lake <- sierra_amphibian_RAMUcount %>%
@@ -101,6 +103,7 @@ top_5_lakes %>%
 ### Combined Figure for Analysis
 
 We combine **Figure 1** and **Figure 2** to aid in visual analysis of the mountain-yellow legged frog population over the study period and study region (see **Figure 3**).
+
 ```{r}
 RAMU_plot <- sierra_amphibian_RAMUcount %>% 
   ggplot(aes(x = as.factor(year), y = amphibian_number, fill = amphibian_life_stage)) +

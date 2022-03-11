@@ -47,7 +47,7 @@
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Bonanza Creek LTER Snowshoe Hare Weight Analysis"]},{"type":"character","attributes":{},"value":["This analysis looks at differences in snowshoe hare weights between male and female sexes at three different monitoring sites within the Bonanza Creek U.S. Long Term Ecological Research Network in Interior Alaska from 1999 - 2012."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Brendan McGovern"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-02-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Bonanza Creek LTER Snowshoe Hare Weight Analysis"]},{"type":"character","attributes":{},"value":["This analysis looks at differences in snowshoe hare weights between male and female sexes at three different monitoring sites within the Bonanza Creek U.S. Long Term Ecological Research Network in Interior Alaska from 1999 - 2012."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Brendan McGovern"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-02-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2321,7 +2321,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
 <a class="logo">
-<img src="../../water_drop.png" alt="Logo"/>
+<img src="../../water_droplet.png" alt="Logo"/>
 </a>
 <a href="../../index.html" class="title">Brendan</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
@@ -2371,36 +2371,180 @@ Research
 <h3 id="annual-juvenile-hare-trap-counts">Annual juvenile hare trap counts</h3>
 <p>From <strong>Figure 1</strong> it appears that the observations of juvenile snowshoe hare trap counts have declined between 1999 and 2012. The maximum juvenile snowshoe hare trap count was 167 in 1999 and the minimum juvenile hare trap counts are 0 in 2002 and 2009. The mean and median counts across the study period are 27 and 16 (rounded from 15.5), respectively. Without a deeper understanding of the frequency of the trap counts it appears that juvenile snowshoe hare counts have decreased fairly substantially between 1999 and 2012. It appears that there was some inconsistency across the number of days per year where researchers counted juvenile hares. To overcome this inconsistency, I would suggest determining a set length of days to make observations (i.e. 15 days per year) during the same period of time in order to get more consistent sampling.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Read in the data</span>
+<span class='va'>bonanza_hares</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span>file <span class='op'>=</span><span class='st'>'data/bonanza_hares.csv'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># i. Annual juvenile hare trap counts from 1999-2012</span>
 
-</div>
-<div class="layout-chunk" data-layout="l-body">
+<span class='co'># cleaning up data, to focus on juvenile hares, extract date info, and rename sites for clarity</span>
+<span class='va'>bonanza_hares_juvenile</span> <span class='op'>&lt;-</span> <span class='va'>bonanza_hares</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>age</span> <span class='op'>==</span> <span class='st'>"j"</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>date_new <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/ymd.html'>mdy</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>month_new <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date_new</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year_only <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date_new</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>study_site <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>grid</span> <span class='op'>==</span> <span class='st'>"bonrip"</span> <span class='op'>~</span> <span class='st'>"Bonanza Riparian"</span>,
+    <span class='va'>grid</span> <span class='op'>==</span> <span class='st'>"bonbs"</span> <span class='op'>~</span> <span class='st'>"Bonanza Spruce"</span>,
+    <span class='va'>grid</span> <span class='op'>==</span> <span class='st'>"bonmat"</span> <span class='op'>~</span> <span class='st'>"Bonanza Mature"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>full_sex <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>sex</span> <span class='op'>==</span> <span class='st'>"m"</span> <span class='op'>~</span> <span class='st'>"male"</span>,
+    <span class='va'>sex</span> <span class='op'>==</span> <span class='st'>"f"</span> <span class='op'>~</span> <span class='st'>"female"</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'># Adding years with a zero observations:</span>
+
+<span class='va'>bonanza_hares_j_count</span> <span class='op'>&lt;-</span> <span class='va'>bonanza_hares_juvenile</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>year_only</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/complete.html'>complete</a></span><span class='op'>(</span>year_only <span class='op'>=</span> <span class='fl'>1999</span><span class='op'>:</span><span class='fl'>2012</span>,
+           fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 1 × 2
-  mean_count median_count
-       &lt;dbl&gt;        &lt;dbl&gt;
-1         27         15.5</code></pre>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Looking at mean and median from 1999 to 2012</span>
+
+<span class='co'>#bonanza_hares_j_count %&gt;%</span>
+ <span class='co'>#summarize(mean_count = mean(n, na.rm=TRUE),</span>
+            <span class='co'>#median_count = median(n))</span>
+</code></pre>
+</div>
+</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Plot juvenile hare counts by year from 1999 to 2012</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>bonanza_hares_j_count</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year_only</span>, y <span class='op'>=</span> <span class='va'>n</span><span class='op'>)</span>,
+           fill <span class='op'>=</span> <span class='st'>"dark cyan"</span>, color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Year"</span>, y <span class='op'>=</span> <span class='st'>"Juvenile snowshoe hare count"</span>, title <span class='op'>=</span> <span class='st'>"Annual juvenile hares trap counts across all monitoring sites"</span>, subtitle <span class='op'>=</span> <span class='st'>"(between 1999-2012)"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <p><img src="hares_files/figure-html5/unnamed-chunk-4-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <p><strong>Figure 1</strong> Graph of the total number of juvenile snowshoe hares trapped and counted across the three monitoring sites annually between 1999-2012. Data: Kielland et al.(2017).</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Summary statistics comparing juvenile hare weights by sex</span>
 
+<span class='va'>bonanza_hares_juvenile_summary</span> <span class='op'>&lt;-</span> <span class='va'>bonanza_hares_juvenile</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>full_sex</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>
+    mean_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    median_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    sd_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    sample_size <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,
+    se_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+    var_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 </div>
 <h3 id="visualize-juvenile-hare-weights">Visualize juvenile hare weights</h3>
 <p>Distributions of hare weights by sex across the three monitoring sites are relatively normally distributed between 1999 and 2012 in <strong>Figure 2</strong>. We can see that juvenile hares tended to be counted at the highest rate at the Bonanza Riparian monitoring site. There are a few instances where hare sex was undetermined, but weight was specified. In order to avoid impacting the male and female data, undetermined values are left as “NA”.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># ii. Visualize juvenile hare weights</span>
+<span class='co'># Plotting juvenile hare weights by sex and site (grid)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>bonanza_hares_juvenile</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>full_sex</span>, y <span class='op'>=</span> <span class='va'>weight</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html'>geom_beeswarm</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>full_sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"goldenrod2"</span>, <span class='st'>"cyan4"</span><span class='op'>)</span>, na.value <span class='op'>=</span> <span class='st'>"green3"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>study_site</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Sex"</span>, y <span class='op'>=</span> <span class='st'>"Weight (gm)"</span>, title <span class='op'>=</span> <span class='st'>"Snowshoe hare weights by monitoring site"</span>, col <span class='op'>=</span> <span class='st'>"Sex"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='cn'>NA</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, outlier.color <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/stat_summary.html'>stat_summary</a></span><span class='op'>(</span>full<span class='op'>=</span><span class='va'>mean</span>,
+               geom<span class='op'>=</span><span class='st'>"point"</span>,
+               shape<span class='op'>=</span><span class='fl'>20</span>,
+               size<span class='op'>=</span><span class='fl'>3</span>,
+               color<span class='op'>=</span><span class='st'>"black"</span>,
+               fill<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
 <p><img src="hares_files/figure-html5/unnamed-chunk-6-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <p><strong>Figure 2</strong> Weight (in grams) for snowshoe hares by sex across the three monitoring sites (Bonanza, Bonanza Mature and Bonanza Riparian) during the study period from 1999-2012. Gold (female), teal (male), and light green (NA) points indicate observations of hare weights by sex and monitoring site across the juvenile hare population. NA values correspond to weight values where sex could not be determined. Box endpoints indicate the 25<sup>th</sup> and 75<sup>th</sup> percentile values; the black line and black point within each box indicates median and mean value for each hare by site, respectively. Data: Kielland et al.(2017).</p>
 <h3 id="juvenile-weight-comparison-male-and-female-snowshoe-hares">Juvenile weight comparison (male and female snowshoe hares)</h3>
-<strong>Table 1</strong> Descriptive statistics (mean, median, standard deviation, and sample size) between female and male snowshoe hares. Data: Kielland et al. 2017.
+<p><strong>Table 1</strong> Descriptive statistics (mean, median, standard deviation, and sample size) between female and male snowshoe hares. Data: Kielland et al. 2017.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Table of mean, standard deviation, and sample size for male and female juvenile snowshoe hares</span>
 
+<span class='co'># Juvenile weight comparison (male and female hares)</span>
+
+<span class='va'>juvenile_comparison</span> <span class='op'>&lt;-</span> <span class='va'>bonanza_hares_juvenile</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>sex</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>full_sex <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>sex</span> <span class='op'>==</span> <span class='st'>"m"</span> <span class='op'>~</span> <span class='st'>"male"</span>,
+    <span class='va'>sex</span> <span class='op'>==</span> <span class='st'>"f"</span> <span class='op'>~</span> <span class='st'>"female"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>juvenile_table</span> <span class='op'>&lt;-</span> <span class='va'>juvenile_comparison</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>full_sex</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>
+    mean_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    median_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    sd_weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>,
+    sample_size <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>
+    <span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Applying some code to make the summary table appear more presentable in the final product:</span>
+<span class='va'>juvenile_table</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sex"</span>, <span class='st'>"Mean weight (gm)"</span>, <span class='st'>"Median weight (gm)"</span>, <span class='st'>"Standard deviation (gm)"</span>, <span class='st'>"Sample size"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='st'>"striped"</span>, full_width <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2460,19 +2604,157 @@ male
 </table>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="hares_files/figure-html5/unnamed-chunk-9-1.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-9-2.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-9-3.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-9-4.png" width="624" /></p>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Prepping for Cohen's *d* and two-sample T-test:</span>
+
+<span class='co'># Pull vectors on male and female weight</span>
+
+<span class='va'>juvenile_comparison_male</span> <span class='op'>&lt;-</span> <span class='va'>juvenile_comparison</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>full_sex</span> <span class='op'>==</span> <span class='st'>"male"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
+
+<span class='va'>juvenile_comparison_female</span> <span class='op'>&lt;-</span> <span class='va'>juvenile_comparison</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>full_sex</span> <span class='op'>==</span> <span class='st'>"female"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
+
+<span class='co'># Plot histograms and qq-plots to ensure normal distributions and relatively linear look for both male and female populations</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<img src="hares_files/figure-html5/unnamed-chunk-9-1.png" width="624" />
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<img src="hares_files/figure-html5/unnamed-chunk-9-2.png" width="624" />
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_female</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<img src="hares_files/figure-html5/unnamed-chunk-9-3.png" width="624" />
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_female</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<img src="hares_files/figure-html5/unnamed-chunk-9-4.png" width="624" />
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Both populations are relatively normally distributed, so t-test should be appropriate</span>
+<span class='va'>juvenile_comparison_ttest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span>, <span class='va'>juvenile_comparison_female</span><span class='op'>)</span>
+<span class='va'>juvenile_comparison_ttest_tidy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_ttest</span><span class='op'>)</span>
+
+<span class='co'># means and sds for both sexes</span>
+<span class='va'>male_mean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span><span class='op'>)</span>
+<span class='va'>female_mean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_female</span><span class='op'>)</span>
+<span class='va'>male_sd</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>female_sd</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_female</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># This will generate the effect size</span>
+<span class='va'>juvenile_comparison_effsize</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/effsize/man/cohen.d.html'>cohen.d</a></span><span class='op'>(</span><span class='va'>juvenile_comparison_male</span>, <span class='va'>juvenile_comparison_female</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 </div>
 <p>Juvenile snowshoe hare weights (gm) were compared between the two sexes; monitoring site was not included as a variable here, but it would be interesting to consider how weight characteristics differ across each site. On average, juvenile male hares weighed the most (945.8588957 <span class="math inline">\(\pm\)</span> 333.2150693 grams, <em>n</em> = 163; mean <span class="math inline">\(\pm\)</span> 1 standard deviation), compared to female hares (855.3908629 <span class="math inline">\(\pm\)</span> 292.2525894 grams, <em>n</em> = 197; mean <span class="math inline">\(\pm\)</span> 1 standard deviation)(Table 1). While the absolute difference in means is 90.47 grams (a 10.05% difference), the difference in means is significant (Welch’s two-sample t-test: t(325.02) = 2.71, p = 0.007093279), and the effect size is large (Cohen’s <em>d</em> = 0.29).</p>
 <h3 id="relationship-between-juvenile-weight-and-hind-foot-length">Relationship between juvenile weight and hind foot length</h3>
 <p>As a starting point, the relationship between weight and hind foot length was explored (ignoring sex and monitoring site). A further analysis should be conducted to compare the relationship between weight and hind foot length between male and female hares, and should include monitoring site as an additional variable.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># iv. Relationship between juvenile weight and hind foot length, includes both male and female</span>
+
+<span class='co'># Plotting just to explore relationship between weight and hind foot length</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>bonanza_hares_juvenile</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>weight</span>, y <span class='op'>=</span> <span class='va'>hindft</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Hare weight (gm)"</span>, y <span class='op'>=</span> <span class='st'>"Hind foot length (mm)"</span>, title <span class='op'>=</span> <span class='st'>"Relationship of juvenile snowshoe hare hind foot length to weight"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <p><img src="hares_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="hares_files/figure-html5/unnamed-chunk-11-1.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-2.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-3.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-4.png" width="624" /></p>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Creating a linear model comparing hind foot length and weight in juvenile snowshoe hares</span>
+
+<span class='va'>juvenile_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>weight</span> <span class='op'>~</span> <span class='va'>hindft</span>, data <span class='op'>=</span> <span class='va'>bonanza_hares_juvenile</span><span class='op'>)</span>
+
+<span class='co'># Converting the output format into nice table</span>
+<span class='va'>juvenile_lm_tidy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>juvenile_lm</span><span class='op'>)</span>
+<span class='va'>juvenile_lm_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>juvenile_lm</span><span class='op'>)</span>
+
+<span class='co'># See model diagnostics for residuals:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>juvenile_lm</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<img src="hares_files/figure-html5/unnamed-chunk-11-1.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-2.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-3.png" width="624" /><img src="hares_files/figure-html5/unnamed-chunk-11-4.png" width="624" />
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Calculate Pearson's r correlation</span>
+<span class='va'>juvenile_cor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>bonanza_hares_juvenile</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>bonanza_hares_juvenile</span><span class='op'>$</span><span class='va'>hindft</span><span class='op'>)</span>
+
+<span class='co'># Make a tidy version of correlation output:</span>
+<span class='va'>juvenile_cor_tidy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>juvenile_cor</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 </div>
 <p>The relationship between weight and hind foot length appears fairly linear in <strong>Figure 3</strong>. A simple linear regression was used to explore the relationship between snowshoe hare weight (gm) and hind foot length (mm) across the snowshoe hares including all three monitoring sites, and includes both male and female snowshoe hares. The simple linear regression revealed that hind foot length moderately predicts hare weight (p &lt; 0.001, R<sup>2</sup> = 0.3 with an average slope of <span class="math inline">\(\beta\)</span> = 9.52g mm<sup>-1</sup> (i.e. for each one millimeter increase in hind foot length we expect an average increase of hare weight of 9.52 g). Hind foot length and weight have a medium positive correlation (Pearson’s <em>r</em> = 0.55, p &lt; 0.001). We can see from the results that the residuals are heteroscedastic.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>bonanza_hares_juvenile</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>hindft</span>, y <span class='op'>=</span> <span class='va'>weight</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>full_sex</span>, pch <span class='op'>=</span> <span class='va'>full_sex</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"goldenrod2"</span>, <span class='st'>"cyan4"</span>, <span class='st'>"green4"</span><span class='op'>)</span>,
+                     name <span class='op'>=</span> <span class='st'>"Hare Sex"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_shape_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>,<span class='fl'>17</span>,<span class='fl'>18</span><span class='op'>)</span>,
+                     name<span class='op'>=</span> <span class='st'>"Hare Sex"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, color <span class='op'>=</span> <span class='st'>"gray30"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"\nHind foot length (mm)"</span>,
+       y <span class='op'>=</span> <span class='st'>"Weight (gm)\n"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.095</span>, <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <p><img src="hares_files/figure-html5/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <p><strong>Figure 3</strong> Relationship between weight (gm) and hind foot length (mm) for snowshoe hares (includes all monitoring sites). Points indicate snowshoe hare weight measurements(female hares = gold circles; male hares = teal triangles). Linear model summary: <span class="math inline">\(\beta\)</span><sub>1</sub> = 9.52 g mm<sup>-1</sup>, p &lt; 0.001, R<sup>2</sup> = 0.3, Pearson’s <em>r</em> = 0.55), Data: Kielland et al. (2017).</p>

@@ -9,7 +9,7 @@ date: 2022-02-25
 output:
   distill::distill_article:
     self_contained: false
-    code_folding: Code
+    code_folding: hide
 ---
 
 
