@@ -1,5 +1,5 @@
 ---
-title: "History of Mono Lake Level (1850 - 2017)"
+title: "History of Mono Lake Levels"
 description: |
   In this analysis, I wanted to plot Mono Lake water levels with important ecological indicators and major legal milestones to see how water levels changed from specific events.
 author:
