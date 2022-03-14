@@ -1,0 +1,100 @@
+---
+title: "Oil Spill Incident Tracking Analysis"
+description: |
+  In this project I utilized data from the CA Department of Fish and Wildlife to visualize oil spill incidents across California by county.
+author:
+  - name: Brendan McGovern
+    url: {}
+date: 2022-03-14
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+
+## California Department of Fish and Wildlife Oil Spill Tracking Analysis
+
+### Overview
+
+This analysis utilizes data by the California Department of Fish and Wildlife that monitors and tracks Oil Spill Releases across the state of California. The database is designed to provide The Office of Spill Prevention and Response (OSPR) with quantified statistical data on oil spill response by OSPR field responders. The OSPR Incident Tracking Database System project was initiated to provide OSPR with oil spill incident data for statistical evaluation and justification for program planning, drills and exercise training and development, legislative analysis, budget preparation, to inform and educate the public and analyze OSPRs overall spill preparedness and response performance. An "incident", for purposes of this database, is "a discharge or threatened discharge of petroleum or other deleterious material into the waters of the state.
+
+We will be visualizing oil spill incidents within the data to identify trends or regions of numerous incidents.
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(tidyverse)
+library(here)
+library(sf)
+library(tmap)
+library(gstat)
+library(stars)
+```
+
+
+```{r}
+# read in counties
+ca_counties_sf <- read_sf('~/Desktop/Bren/UCSB/2nd Year/2 - Winter 2022/ESM244_Adv_Data_Analysis/Website/bmcgovern_website/_research_portfolio/2022-03-14-Oil-spill-CA/data/ca_counties/CA_Counties_TIGER2016.shp') %>%
+janitor::clean_names()
+
+ca_counties_sub_sf <- ca_counties_sf %>% 
+  janitor::clean_names() %>% 
+  select(county_name = name, land_area = aland)
+
+# check counties projection
+#st_crs(ca_counties_sf) #ESPG3857
+
+# read in oil spill incident tracking
+spill_tracking_sf <- read_sf(here('~/Desktop/Bren/UCSB/2nd Year/2 - Winter 2022/ESM244_Adv_Data_Analysis/Website/bmcgovern_website/_research_portfolio/2022-03-14-Oil-spill-CA/data/Oil_Spill_Incident_Tracking_ds394'),
+                             layer = 'Oil_Spill_Incident_Tracking_[ds394]') %>% 
+  janitor::clean_names()
+
+# check spill tracking projection
+#st_crs(spill_tracking_sf) #ESPG3857
+```
+
+
+```{r}
+
+# Making the map interactive
+tmap_mode(mode = "view")
+
+# Making the map
+tm_shape(ca_counties_sub_sf) +
+  tm_borders() +
+  tm_fill('county_name', palette = 'Blues', alpha = 0.3, legend.show = FALSE) +
+  tm_shape(spill_tracking_sf) +
+  tm_dots(col = 'black') +
+  tm_layout("California Oil Spill Incidents (2007-2008)")
+```
+
+**Figure 1:** Interactive map to facilitate exploring oil spill incidents across California with spills by county provided in color. Data: [CA DFW Oil Spill Incident Tracking](https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/explore?location=36.977441%2C-119.422009%2C6.31&showTable=true)"
+
+
+```{r}
+## join spill incidents to county
+spill_by_county <- ca_counties_sf %>% 
+  st_join(spill_tracking_sf)
+
+spill_counts <- spill_by_county %>% 
+  group_by(name) %>% 
+  summarize(n_records = sum(!is.na(objectid)))
+
+#head(spill_counts)
+```
+
+
+```{r}
+ggplot(data = spill_counts) +
+  geom_sf(aes(fill = n_records), color = "white", size = 0.1) +
+  scale_fill_gradient(low = "gray", high = "purple") +
+  labs(title = "Choropleth map of Oil Spill Incidents Grouped by County", fill = "Number of Spills") +
+  theme_minimal()
+```
+
+**Figure 2:** Choropleth map showing number of spills by county to show where concentration of spill incidents occurred between 2007-2008. Data: [CA DFW Oil Spill Incident Tracking](https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/explore?location=36.977441%2C-119.422009%2C6.31&showTable=true)"}
+
+### Citation: 
+
+California Dpeartment of Fish and Wildlife. Oil Spill Incident Tracking [ds394] database (2007-2008). Data: [CA DFW Oil Spill Incident Tracking](https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/explore?location=36.977441%2C-119.422009%2C6.31&showTable=true).
